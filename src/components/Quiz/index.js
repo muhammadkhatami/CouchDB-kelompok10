@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Button, TextInput, Heading } from "grommet";
-import { FormAdd } from "grommet-icons";
+import { Box, Button } from "grommet";
 import questionAPI from "../Question/index.js";
 import QuestionBox from "../Question/QuestionBox";
 import Result from "../Question/ResultBox";

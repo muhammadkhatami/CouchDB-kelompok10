@@ -1,15 +1,19 @@
 import React from "react";
-// import "../style.css";
-import questionBox from "../Question/QuestionBox";
+import { Button } from "grommet";
+import "./style.css";
 
 const Result = ({ score, length, playAgain }) => (
   <div className="score-board">
     <div className="score">
-      Your score is {((score / length) * 100).toFixed(2)} ! ! !
+      Your final score is
+      <span>{((score / length) * 100).toFixed(2)}</span>
     </div>
-    <button className="playBtn" onClick={playAgain}>
-      Play Again
-    </button>
+    <Button
+      primary
+      label="Play Again"
+      onClick={playAgain}
+      style={{ marginTop: "2rem" }}
+    />
   </div>
 );
 
