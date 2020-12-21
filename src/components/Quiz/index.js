@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Button, TextInput, Heading } from "grommet";
 import { FormAdd } from "grommet-icons";
-import questionAPI from "../question/index.js";
-import QuestionBox from "../question/QuestionBox";
-import Result from "../question/ResultBox";
+import questionAPI from "../Question/index.js";
+import QuestionBox from "../Question/QuestionBox";
+import Result from "../Question/ResultBox";
 
 export class AddToRead extends React.Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export class AddToRead extends React.Component {
     });
   }
 
-  // Function to get question from ./question
+  // Function to get Question from ./Question
   getQuestions = () => {
     questionAPI().then((question) => {
       this.setState({ questionBank: question });
@@ -50,7 +50,7 @@ export class AddToRead extends React.Component {
     });
   };
 
-  // componentDidMount function to get question
+  // componentDidMount function to get Question
   componentDidMount() {
     this.getQuestions();
   }
@@ -72,8 +72,6 @@ export class AddToRead extends React.Component {
     this.props.db.put({
       _id: new Date().toJSON(),
       submit_datetime: datetime,
-      read: false,
-      item: this.state.name,
       nomor1: this.state.nomor1,
       nomor2: this.state.nomor2,
       nomor3: this.state.nomor3,
@@ -83,24 +81,6 @@ export class AddToRead extends React.Component {
   render() {
     return (
       <Box>
-        <Box pad="medium" border={{ side: "top", color: "light-3" }}>
-          <Heading level="3" margin="none">
-            Mari kita kuis:
-          </Heading>
-        </Box>
-        <Box direction="row" pad="medium" gap="small">
-          <TextInput
-            onChange={this.changeName.bind(this)}
-            placeholder="Masukan nama kuis ..."
-            value={this.state.name}
-          />
-          <Button
-            icon={<FormAdd />}
-            onClick={this.addElement.bind(this)}
-            primary
-            type="button"
-          />
-        </Box>
         <Box>
           <div className="container">
             <div className="title">QuizOn</div>

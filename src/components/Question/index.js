@@ -79,6 +79,6 @@ const qBank = [
   },
 ];
 
-// n = 5 to export 5 question
+// n = 5 to export 5 Question
 export default (n = 5) =>
   Promise.resolve(qBank.sort(() => 0.5 - Math.random()).slice(0, n));
