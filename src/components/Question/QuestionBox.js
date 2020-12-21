@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card, CardHeader, CardBody, RadioButtonGroup } from "grommet";
 import "./style.css";
 
-// Function to Question inside our app
 const QuestionBox = ({ question, options, selected, index }) => {
   const [answer, setAnswer] = useState();
   return (

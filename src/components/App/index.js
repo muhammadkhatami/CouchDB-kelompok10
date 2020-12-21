@@ -95,7 +95,7 @@ export class App extends React.Component {
               <Home path="/" db={db} />
             </Router>
           </Box>
-          <OfflineMessage online={this.state.online} />
+          <OfflineMessage online={online} />
         </Box>
       </Grommet>
     );

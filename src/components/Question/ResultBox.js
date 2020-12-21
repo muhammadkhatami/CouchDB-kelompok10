@@ -2,11 +2,11 @@ import React from "react";
 import { Button } from "grommet";
 import "./style.css";
 
-const Result = ({ score, length, playAgain }) => (
+const Result = ({ score, playAgain }) => (
   <div className="score-board">
     <div className="score">
       Your final score is
-      <span>{((score / length) * 100).toFixed(2)}</span>
+      <span>{score}</span>
     </div>
     <Button
       primary

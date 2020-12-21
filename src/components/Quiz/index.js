@@ -1,91 +1,76 @@
 import React from "react";
 import { Box, Button } from "grommet";
-import questionAPI from "../Question/index.js";
+import questionAPI from "../Question";
 import QuestionBox from "../Question/QuestionBox";
 import Result from "../Question/ResultBox";
 
-export class AddToRead extends React.Component {
+export class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
       questionBank: [],
-      score: 0,
-      length: 0,
-      responses: 0,
-      submited: 0,
-      correctlyAnsweredQuestion: [],
+      submitted: false,
+      correctQuestionAnswered: 0,
+      correctlyAnsweredQuestionId: [],
+      finalScore: 0,
     };
 
-    this.changeName.bind(this);
-    this.addElement.bind(this);
+    this.handleSubmit.bind(this);
   }
 
-  changeName(e) {
-    this.setState({
-      name: e.target.value,
-    });
-  }
-
-  // Function to get Question from ./Question
   getQuestions = () => {
     questionAPI().then((question) => {
       this.setState({ questionBank: question });
     });
   };
 
-  // Set state back to default and call function
   playAgain = () => {
     this.getQuestions();
     this.setState({
-      score: 0,
-      responses: 0,
-      submited: 0,
-      correctlyAnsweredQuestion: [],
+      submitted: false,
+      correctQuestionAnswered: 0,
+      correctlyAnsweredQuestionId: [],
+      finalScore: 0,
     });
   };
 
-  // Function to compute scores
-  computeAnswer = (answer, correctAns, questionId) => {
-    const {
-      correctlyAnsweredQuestion,
-      score,
-      responses,
-      questionBank: { length },
-    } = this.state;
+  computeAnswer = (answer, correctAnswer, questionId) => {
+    const { correctlyAnsweredQuestionId, correctQuestionAnswered } = this.state;
 
     if (
-      answer === correctAns &&
-      !correctlyAnsweredQuestion.includes(questionId)
+      answer === correctAnswer &&
+      !correctlyAnsweredQuestionId.includes(questionId)
     ) {
       this.setState({
-        score: score + 1,
-        correctlyAnsweredQuestion: [...correctlyAnsweredQuestion, questionId],
+        correctQuestionAnswered: correctQuestionAnswered + 1,
+        correctlyAnsweredQuestionId: [
+          ...correctlyAnsweredQuestionId,
+          questionId,
+        ],
       });
     } else if (
-      answer !== correctAns &&
-      correctlyAnsweredQuestion.includes(questionId)
+      answer !== correctAnswer &&
+      correctlyAnsweredQuestionId.includes(questionId)
     ) {
-      this.setState({ score: score - 1 });
+      this.setState({ correctQuestionAnswered: correctQuestionAnswered - 1 });
     }
-
-    this.setState({
-      responses: responses < length ? responses + 1 : length,
-    });
   };
 
-  // componentDidMount function to get Question
   componentDidMount() {
     this.getQuestions();
   }
 
-  addElement() {
-    const finalScore = (
-      (this.state.score / this.state.questionBank.length) *
-      100
-    ).toFixed(2);
+  handleSubmit() {
+    const {
+      correctQuestionAnswered,
+      questionBank: { length },
+    } = this.state;
+
+    const { db } = this.props;
+
+    const finalScore = ((correctQuestionAnswered / length) * 100).toFixed(2);
     const currentdate = new Date();
-    const datetime =
+    const dateTime =
       currentdate.getDate() +
       "/" +
       (currentdate.getMonth() + 1) +
@@ -97,63 +82,51 @@ export class AddToRead extends React.Component {
       currentdate.getMinutes() +
       ":" +
       currentdate.getSeconds();
-    this.props.db.put({
+
+    db.put({
       _id: new Date().toJSON(),
-      submit_datetime: datetime,
+      submit_datetime: dateTime,
       score: finalScore,
     });
-    this.state.submited = 1;
+
+    this.setState({ submitted: true, finalScore });
     this.forceUpdate();
   }
 
   render() {
+    const { questionBank, submitted, finalScore } = this.state;
+
     return (
       <Box>
-        <Box>
-          <div className="container">
-            <h2>Pop Quiz!</h2>
-            {this.state.questionBank.length > 0 &&
-              // this.state.responses < this.state.questionBank.length &&
-              this.state.submited != 1 &&
-              this.state.questionBank.map(
-                ({ question, answers, correct, questionId }) => (
-                  <QuestionBox
-                    question={question}
-                    options={answers}
-                    key={questionId}
-                    index={questionId}
-                    selected={(answer) =>
-                      this.computeAnswer(answer, correct, questionId)
-                    }
-                  />
-                )
-              )}
-            {this.state.submited == 0 ? (
-              <Box align="end">
-                <Button
-                  primary
-                  label="Submit"
-                  onClick={() => this.addElement()}
-                />
-              </Box>
-            ) : (
-              <div />
-            )}
+        <h2>Pop Quiz!</h2>
+        {!submitted &&
+          questionBank.length > 0 &&
+          questionBank.map(({ question, answers, correct, questionId }) => (
+            <QuestionBox
+              key={questionId}
+              index={questionId}
+              question={question}
+              options={answers}
+              selected={(answer) =>
+                this.computeAnswer(answer, correct, questionId)
+              }
+            />
+          ))}
 
-            {this.state.submited == 1 ? (
-              <Result
-                score={this.state.score}
-                length={this.state.questionBank.length}
-                playAgain={this.playAgain}
-              />
-            ) : (
-              <div />
-            )}
-          </div>
-        </Box>
+        {!submitted && (
+          <Box align="end">
+            <Button
+              primary
+              label="Submit"
+              onClick={() => this.handleSubmit()}
+            />
+          </Box>
+        )}
+
+        {submitted && <Result score={finalScore} playAgain={this.playAgain} />}
       </Box>
     );
   }
 }
 
-export default AddToRead;
+export default Quiz;
