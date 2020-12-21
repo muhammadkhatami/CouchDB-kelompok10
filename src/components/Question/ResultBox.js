@@ -5,10 +5,10 @@ import questionBox from "../Question/QuestionBox";
 const Result = ({ score, length, playAgain }) => (
   <div className="score-board">
     <div className="score">
-      Your score is {score} / {length} correct answer ! ! !{" "}
+      Your score is {((score / length) * 100).toFixed(2)} ! ! !{" "}
     </div>
     <button className="playBtn" onClick={playAgain}>
-      Submit and Retake
+      Play Again
     </button>
   </div>
 );

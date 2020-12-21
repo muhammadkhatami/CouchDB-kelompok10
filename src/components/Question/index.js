@@ -23,48 +23,6 @@ const qBank = [
     correct: "vinayak",
     questionId: "090089",
   },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "01010101",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "092299",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "222099",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "2222099",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "09922099",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "222292099",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "0998999099",
-  },
 ];
 
 // n = 5 to export 5 Question

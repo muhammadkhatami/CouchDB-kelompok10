@@ -14,7 +14,6 @@ export class AddToRead extends React.Component {
       score: 0,
       length: 0,
       responses: 0,
-      score: 0,
       submited: false,
     };
 
