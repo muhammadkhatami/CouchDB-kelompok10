@@ -1,18 +1,18 @@
 import React, { useState } from "react";
+
 import { Card, CardHeader, CardBody, RadioButtonGroup } from "grommet";
 import "./style.css";
 
 const QuestionBox = ({ question, options, selected, index }) => {
   const [answer, setAnswer] = useState();
+
   return (
     <Card style={{ padding: "1rem", marginBottom: "1.5rem" }}>
       <CardHeader style={{ marginBottom: "0.75rem" }}>
-        <label style={{ fontSize: "1rem", color: "#aaa", fontStyle: "italic" }}>
-          <strong>Question #{index}</strong>
-        </label>
+        <label className="question-label">Question #{index}</label>
       </CardHeader>
       <CardBody>
-        <div className="question">{question}</div>
+        <div className="question-title">{question}</div>
         <RadioButtonGroup
           style={{ textTransform: "capitalize", fontSize: "1rem" }}
           name={`question-${index}`}
