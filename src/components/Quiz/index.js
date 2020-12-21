@@ -37,10 +37,10 @@ export class AddToRead extends React.Component {
 
   // Set state back to default and call function
   playAgain = () => {
+    this.addElement();
     this.getQuestions();
     this.setState({ score: 0, responses: 0 });
   };
-
 
   // Function to compute scores
   computeAnswer = (answer, correctAns) => {
@@ -50,7 +50,10 @@ export class AddToRead extends React.Component {
       });
     }
     this.setState({
-      responses: this.state.responses < this.state.questionBank.length ? this.state.responses + 1 : this.state.questionBank.length,
+      responses:
+        this.state.responses < this.state.questionBank.length
+          ? this.state.responses + 1
+          : this.state.questionBank.length,
     });
   };
 
@@ -78,7 +81,7 @@ export class AddToRead extends React.Component {
       submit_datetime: datetime,
       score: this.state.score,
     });
-    this.state.submited = true
+    this.state.submited = true;
   }
 
   render() {
@@ -100,11 +103,14 @@ export class AddToRead extends React.Component {
                 )
               )}
             {this.state.responses === this.state.questionBank.length ? (
-              <div>
-                {/* <button onClick={this.addElement.bind(this)}> submit </button> */}
-                <Result score={this.state.score} length={this.state.questionBank.length} playAgain={this.playAgain} onClick={this.addElement.bind(this)}/>
-              </div>
-            ) : null}
+              <Result
+                score={this.state.score}
+                length={this.state.questionBank.length}
+                playAgain={this.playAgain}
+              />
+            ) : (
+              <div />
+            )}
           </div>
         </Box>
       </Box>
