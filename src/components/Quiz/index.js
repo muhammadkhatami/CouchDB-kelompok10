@@ -14,6 +14,7 @@ export class AddToRead extends React.Component {
       score: 0,
       length: 0,
       responses: 0,
+      submited: false,
     };
 
     this.changeName.bind(this);
@@ -74,10 +75,9 @@ export class AddToRead extends React.Component {
     this.props.db.put({
       _id: new Date().toJSON(),
       submit_datetime: datetime,
-      nomor1: this.state.nomor1,
-      nomor2: this.state.nomor2,
-      nomor3: this.state.nomor3,
+      score: this.state.score,
     });
+    this.state.submited = true
   }
 
   render() {
@@ -99,7 +99,10 @@ export class AddToRead extends React.Component {
                 )
               )}
             {this.state.responses === this.state.questionBank.length ? (
-              <Result score={this.state.score} length={this.state.questionBank.length} playAgain={this.playAgain} />
+              <div>
+                {/* <button onClick={this.addElement.bind(this)}> submit </button> */}
+                <Result score={this.state.score} length={this.state.questionBank.length} playAgain={this.playAgain} onClick={this.addElement.bind(this)}/>
+              </div>
             ) : null}
           </div>
         </Box>
