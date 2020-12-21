@@ -8,7 +8,7 @@ const QuestionBox = ({ question, options, selected, index }) => {
   return (
     <Card style={{ padding: "1rem", marginBottom: "1.5rem" }}>
       <CardHeader style={{ marginBottom: "0.75rem" }}>
-        <label style={{ fontSize: "1rem", color: "#aaa" }}>
+        <label style={{ fontSize: "1rem", color: "#aaa", fontStyle: "italic" }}>
           <strong>Question #{index}</strong>
         </label>
       </CardHeader>
