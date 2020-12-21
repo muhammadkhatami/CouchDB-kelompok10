@@ -116,6 +116,9 @@ export class AddToRead extends React.Component {
                   />
                 )
               )}
+            {this.state.responses === 5 ? (
+              <Result score={this.state.score} playAgain={this.playAgain} />
+            ) : null}
           </div>
         </Box>
       </Box>
