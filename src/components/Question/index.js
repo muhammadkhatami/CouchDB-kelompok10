@@ -65,20 +65,8 @@ const qBank = [
     correct: "vinayak",
     questionId: "0998999099",
   },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "09459099",
-  },
-  {
-    question: "how build the app ?",
-    answers: ["vinayak", "sarthak", "somil", "devesh"],
-    correct: "vinayak",
-    questionId: "0912219099",
-  },
 ];
 
 // n = 5 to export 5 Question
-export default (n = 5) =>
+export default (n = qBank.length) =>
   Promise.resolve(qBank.sort(() => 0.5 - Math.random()).slice(0, n));

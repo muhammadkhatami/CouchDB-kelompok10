@@ -12,6 +12,7 @@ export class AddToRead extends React.Component {
       name: "",
       questionBank: [],
       score: 0,
+      length: 0,
       responses: 0,
       score: 0,
       submited: false,
@@ -40,6 +41,7 @@ export class AddToRead extends React.Component {
     this.setState({ score: 0, responses: 0 });
   };
 
+
   // Function to compute scores
   computeAnswer = (answer, correctAns) => {
     if (answer === correctAns) {
@@ -48,7 +50,7 @@ export class AddToRead extends React.Component {
       });
     }
     this.setState({
-      responses: this.state.responses < 5 ? this.state.responses + 1 : 5,
+      responses: this.state.responses < this.state.questionBank.length ? this.state.responses + 1 : this.state.questionBank.length,
     });
   };
 
@@ -86,7 +88,7 @@ export class AddToRead extends React.Component {
           <div className="container">
             <div className="title">QuizOn</div>
             {this.state.questionBank.length > 0 &&
-              this.state.responses < 5 &&
+              this.state.responses < this.state.questionBank.length &&
               this.state.questionBank.map(
                 ({ question, answers, correct, questionId }) => (
                   <QuestionBox
@@ -97,10 +99,10 @@ export class AddToRead extends React.Component {
                   />
                 )
               )}
-            {this.state.responses === 5 ? (
+            {this.state.responses === this.state.questionBank.length ? (
               <div>
                 {/* <button onClick={this.addElement.bind(this)}> submit </button> */}
-                <Result score={this.state.score} playAgain={this.playAgain} onClick={this.addElement.bind(this)}/>
+                <Result score={this.state.score} length={this.state.questionBank.length} playAgain={this.playAgain} onClick={this.addElement.bind(this)}/>
               </div>
             ) : null}
           </div>

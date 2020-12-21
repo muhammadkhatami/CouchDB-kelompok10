@@ -1,9 +1,11 @@
 import React from 'react'; 
-// import "../style.css"; 
+// import "../style.css";
+import questionBox from "../Question/QuestionBox"
 
-const Result = ({score, playAgain}) => ( 
+
+const Result = ({score, length, playAgain}) => (
 <div className="score-board"> 
-	<div className="score"> Your score is {score} / 5 correct answer ! ! ! </div> 
+	<div className="score"> Your score is {score} / {length} correct answer ! ! ! </div> 
 	<button className="playBtn" onClick={playAgain} > Submit and Retake </button> 
 </div> 
 ) 
