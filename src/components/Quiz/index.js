@@ -14,7 +14,7 @@ export class AddToRead extends React.Component {
       score: 0,
       length: 0,
       responses: 0,
-      submited: false,
+      submited: 0,
     };
 
     this.changeName.bind(this);
@@ -36,9 +36,8 @@ export class AddToRead extends React.Component {
 
   // Set state back to default and call function
   playAgain = () => {
-    this.addElement();
     this.getQuestions();
-    this.setState({ score: 0, responses: 0 });
+    this.setState({ score: 0, responses: 0, submited: 0 });
   };
 
   // Function to compute scores
@@ -80,36 +79,48 @@ export class AddToRead extends React.Component {
       submit_datetime: datetime,
       score: this.state.score,
     });
-    this.state.submited = true;
+    this.state.submited = 1;
+    this.forceUpdate()
   }
 
   render() {
+    console.log(this.state.submited)
     return (
       <Box>
         <Box>
           <div className="container">
             <div className="title">QuizOn</div>
             {this.state.questionBank.length > 0 &&
-              this.state.responses < this.state.questionBank.length &&
+              // this.state.responses < this.state.questionBank.length &&
+              this.state.submited != 1 &&
               this.state.questionBank.map(
                 ({ question, answers, correct, questionId }) => (
-                  <QuestionBox
+                    <QuestionBox
                     question={question}
                     options={answers}
                     key={questionId}
                     selected={(answer) => this.computeAnswer(answer, correct)}
                   />
                 )
+              )
+              }
+              {this.state.submited == 0 ? (
+                <button className="playBtn" onClick={this.addElement.bind(this)}>
+                  Submit
+                </button>
+              ) : (
+                <div />
               )}
-            {this.state.responses === this.state.questionBank.length ? (
-              <Result
-                score={this.state.score}
-                length={this.state.questionBank.length}
-                playAgain={this.playAgain}
-              />
-            ) : (
-              <div />
-            )}
+              
+              {this.state.submited == 1 ? (
+                <Result
+                  score={this.state.score}
+                  length={this.state.questionBank.length}
+                  playAgain={this.playAgain}
+                />
+              ) : (
+                <div />
+              )}
           </div>
         </Box>
       </Box>
