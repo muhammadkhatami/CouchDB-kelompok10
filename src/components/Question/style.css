@@ -2,6 +2,7 @@
   font-size: 18px;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  margin-block-start: 0;
 }
 
 .score {

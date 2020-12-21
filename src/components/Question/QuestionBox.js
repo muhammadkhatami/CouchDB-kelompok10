@@ -12,7 +12,7 @@ const QuestionBox = ({ question, options, selected, index }) => {
         <label className="question-label">Question #{index}</label>
       </CardHeader>
       <CardBody>
-        <div className="question-title">{question}</div>
+        <h5 className="question-title">{question}</h5>
         <RadioButtonGroup
           style={{ textTransform: "capitalize", fontSize: "1rem" }}
           name={`question-${index}`}
