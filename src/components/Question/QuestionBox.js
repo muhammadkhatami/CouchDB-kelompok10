@@ -15,6 +15,7 @@ const QuestionBox = ({ question, options, selected, index }) => {
       <CardBody>
         <div className="question">{question}</div>
         <RadioButtonGroup
+          style={{ textTransform: "capitalize" }}
           name={`question-${index}`}
           id={`question-${index}`}
           options={options}
