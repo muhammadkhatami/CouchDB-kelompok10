@@ -4,7 +4,6 @@ import React, { useState } from "react";
 // Function to question inside our app
 const QuestionBox = ({ question, options, selected }) => {
   const [answer, setAnswer] = useState(options);
-  console.log(answer);
   return (
     <div className="questionBox">
       <div className="question">{question}</div>
