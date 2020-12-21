@@ -61,6 +61,7 @@ export class AddToRead extends React.Component {
   }
 
   addElement() {
+    var scr = ((this.state.score/this.state.questionBank.length)*100).toFixed(2);
     var currentdate = new Date();
     var datetime =
       currentdate.getDate() +
@@ -77,7 +78,7 @@ export class AddToRead extends React.Component {
     this.props.db.put({
       _id: new Date().toJSON(),
       submit_datetime: datetime,
-      score: this.state.score,
+      score: scr,
     });
     this.state.submited = 1;
     this.forceUpdate()
