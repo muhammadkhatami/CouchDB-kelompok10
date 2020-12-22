@@ -3,6 +3,9 @@ import { Box } from "grommet";
 
 import * as Styled from "./styles";
 
+let time = new Date().toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+let day = new Date().toLocaleDateString();
+
 export const Header = () => (
   <Box
     background={{ color: "brand", dark: false }}
@@ -41,7 +44,7 @@ export const Header = () => (
       justify="between"
       margin={{ right: "medium", left: "medium" }}
     >
-      <Styled.StyledLink to="/">CouchDB</Styled.StyledLink>
+      <Styled.StyledLink to="/">{day}, {time}</Styled.StyledLink>
     </Box>
   </Box>
 );
