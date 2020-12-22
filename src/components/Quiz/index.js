@@ -1,11 +1,10 @@
 import React from "react";
-
 import { Box, Button } from "grommet";
 import questionAPI from "../Question";
 import QuestionBox from "../Question/QuestionBox";
 import Result from "../Question/ResultBox";
 
-export class Quiz extends React.Component {
+export class Quiz extends React.Component  {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +13,13 @@ export class Quiz extends React.Component {
       correctQuestionAnswered: 0,
       correctlyAnsweredQuestionId: [],
       finalScore: 0,
+      minute: 0,
+      second: 2,
     };
 
     this.handleSubmit.bind(this);
   }
+
 
   getQuestions = () => {
     questionAPI().then((question) => {
@@ -32,6 +34,8 @@ export class Quiz extends React.Component {
       correctQuestionAnswered: 0,
       correctlyAnsweredQuestionId: [],
       finalScore: 0,
+      minute:0,
+      second:2,
     });
   };
 
@@ -57,11 +61,42 @@ export class Quiz extends React.Component {
     }
   };
 
+  timer = () => {
+    this.myInterval = setInterval(() => {
+      const { second, minute } = this.state
+
+      if (second > 0) {
+        this.setState(({ second }) => ({
+          second: second - 1
+        }))
+      }
+      if (second === 0) {
+        if (minute === 0) {
+          clearInterval(this.myInterval)
+        } else {
+          this.setState(({ minute }) => ({
+            minute: minute - 1,
+            second: 59
+          }))
+        }
+      }
+    }, 1000)
+  }
+
   componentDidMount() {
     this.getQuestions();
+    this.timer();
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.myInterval)
   }
 
   handleSubmit() {
+    console.log("test 1")
+    this.componentWillUnmount();
+    console.log("test 2")
     const {
       correctQuestionAnswered,
       questionBank: { length },
@@ -95,12 +130,18 @@ export class Quiz extends React.Component {
   }
 
   render() {
-    const { questionBank, submitted, finalScore } = this.state;
+    const { questionBank, submitted, finalScore, minute, second } = this.state;
+
 
     return (
       <Box>
         <h2>Pop Quiz!</h2>
-        {!submitted &&
+        <h3>Time remaining: {minute}:{second< 10 ? `0${ second }` : second}</h3>
+        { minute === 0 && second === 0
+            ?
+            <div>{this.handleSubmit()}
+            {submitted && <Result score={finalScore} playAgain={this.playAgain} />}</div>
+            : <div>{!submitted &&
           questionBank.length > 0 &&
           questionBank.map(
             ({ question, answers, correct, questionId }, index) => (
@@ -115,21 +156,22 @@ export class Quiz extends React.Component {
               />
             )
           )}
+              {!submitted && (
+                  <Box align="end">
+                    <Button
+                        primary
+                        label="Submit"
+                        onClick={() => this.handleSubmit()}
+                    />
+                  </Box>
+              )}
 
-        {!submitted && (
-          <Box align="end">
-            <Button
-              primary
-              label="Submit"
-              onClick={() => this.handleSubmit()}
-            />
-          </Box>
-        )}
+              {submitted && <Result score={finalScore} playAgain={this.playAgain} />}
 
-        {submitted && <Result score={finalScore} playAgain={this.playAgain} />}
+        </div>
+        }
       </Box>
     );
   }
 }
-
 export default Quiz;
