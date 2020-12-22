@@ -43,8 +43,8 @@ export class Quiz extends React.Component  {
     const { correctlyAnsweredQuestionId, correctQuestionAnswered } = this.state;
 
     if (
-      answer === correctAnswer &&
-      !correctlyAnsweredQuestionId.includes(questionId)
+        answer === correctAnswer &&
+        !correctlyAnsweredQuestionId.includes(questionId)
     ) {
       this.setState({
         correctQuestionAnswered: correctQuestionAnswered + 1,
@@ -54,8 +54,8 @@ export class Quiz extends React.Component  {
         ],
       });
     } else if (
-      answer !== correctAnswer &&
-      correctlyAnsweredQuestionId.includes(questionId)
+        answer !== correctAnswer &&
+        correctlyAnsweredQuestionId.includes(questionId)
     ) {
       this.setState({ correctQuestionAnswered: correctQuestionAnswered - 1 });
     }
@@ -104,17 +104,17 @@ export class Quiz extends React.Component  {
     const finalScore = ((correctQuestionAnswered / length) * 100).toFixed(2);
     const currentdate = new Date();
     const dateTime =
-      currentdate.getDate() +
-      "/" +
-      (currentdate.getMonth() + 1) +
-      "/" +
-      currentdate.getFullYear() +
-      " @ " +
-      currentdate.getHours() +
-      ":" +
-      currentdate.getMinutes() +
-      ":" +
-      currentdate.getSeconds();
+        currentdate.getDate() +
+        "/" +
+        (currentdate.getMonth() + 1) +
+        "/" +
+        currentdate.getFullYear() +
+        " @ " +
+        currentdate.getHours() +
+        ":" +
+        currentdate.getMinutes() +
+        ":" +
+        currentdate.getSeconds();
 
     db.put({
       _id: new Date().toJSON(),
