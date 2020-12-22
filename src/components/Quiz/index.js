@@ -37,7 +37,7 @@ export class Quiz extends React.Component  {
       minute:3,
       second:2,
     });
-    this.componentDidMount();
+    this,this.timer;
   };
 
   computeAnswer = (answer, correctAnswer, questionId) => {
