@@ -4,7 +4,7 @@ import questionAPI from "../Question";
 import QuestionBox from "../Question/QuestionBox";
 import Result from "../Question/ResultBox";
 
-export class Quiz extends React.Component  {
+export class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,13 +13,12 @@ export class Quiz extends React.Component  {
       correctQuestionAnswered: 0,
       correctlyAnsweredQuestionId: [],
       finalScore: 0,
-      minute: 0,
-      second: 10,
+      minute: 3,
+      second: 0,
     };
 
     this.handleSubmit.bind(this);
   }
-
 
   getQuestions = () => {
     questionAPI().then((question) => {
@@ -28,24 +27,25 @@ export class Quiz extends React.Component  {
   };
 
   playAgain = () => {
+    clearInterval(this.myInterval);
     this.getQuestions();
     this.setState({
       submitted: false,
       correctQuestionAnswered: 0,
       correctlyAnsweredQuestionId: [],
       finalScore: 0,
-      minute:3,
-      second:2,
+      minute: 3,
+      second: 0,
     });
-    this.componentDidMount();
+    this.timer();
   };
 
   computeAnswer = (answer, correctAnswer, questionId) => {
     const { correctlyAnsweredQuestionId, correctQuestionAnswered } = this.state;
 
     if (
-        answer === correctAnswer &&
-        !correctlyAnsweredQuestionId.includes(questionId)
+      answer === correctAnswer &&
+      !correctlyAnsweredQuestionId.includes(questionId)
     ) {
       this.setState({
         correctQuestionAnswered: correctQuestionAnswered + 1,
@@ -55,8 +55,8 @@ export class Quiz extends React.Component  {
         ],
       });
     } else if (
-        answer !== correctAnswer &&
-        correctlyAnsweredQuestionId.includes(questionId)
+      answer !== correctAnswer &&
+      correctlyAnsweredQuestionId.includes(questionId)
     ) {
       this.setState({ correctQuestionAnswered: correctQuestionAnswered - 1 });
     }
@@ -64,26 +64,26 @@ export class Quiz extends React.Component  {
 
   timer = () => {
     this.myInterval = setInterval(() => {
-      const { second, minute } = this.state
+      const { second, minute } = this.state;
 
       if (second > 0) {
         this.setState(({ second }) => ({
-          second: second - 1
-        }))
+          second: second - 1,
+        }));
       }
       if (second === 0) {
         if (minute === 0) {
-          clearInterval(this.myInterval)
+          clearInterval(this.myInterval);
           this.handleSubmit();
         } else {
           this.setState(({ minute }) => ({
             minute: minute - 1,
-            second: 59
-          }))
+            second: 59,
+          }));
         }
       }
-    }, 1000)
-  }
+    }, 1000);
+  };
 
   componentDidMount() {
     this.getQuestions();
@@ -91,7 +91,7 @@ export class Quiz extends React.Component  {
   }
 
   componentWillUnmount() {
-    clearInterval(this.myInterval)
+    clearInterval(this.myInterval);
   }
 
   handleSubmit() {
@@ -105,17 +105,17 @@ export class Quiz extends React.Component  {
     const finalScore = ((correctQuestionAnswered / length) * 100).toFixed(2);
     const currentdate = new Date();
     const dateTime =
-        currentdate.getDate() +
-        "/" +
-        (currentdate.getMonth() + 1) +
-        "/" +
-        currentdate.getFullYear() +
-        " @ " +
-        currentdate.getHours() +
-        ":" +
-        currentdate.getMinutes() +
-        ":" +
-        currentdate.getSeconds();
+      currentdate.getDate() +
+      "/" +
+      (currentdate.getMonth() + 1) +
+      "/" +
+      currentdate.getFullYear() +
+      " @ " +
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
 
     db.put({
       _id: new Date().toJSON(),
@@ -130,46 +130,46 @@ export class Quiz extends React.Component  {
     const { questionBank, submitted, finalScore, minute, second } = this.state;
 
     return (
-        <Box>
-          <h2>Pop Quiz!</h2>
-          {!submitted && (
-              <h3>
-                Time remaining: {minute}:{second < 10 ? `0${second}` : second}
-              </h3>
-          )}
+      <Box>
+        <h2>Pop Quiz!</h2>
+        {!submitted && (
+          <h3>
+            Time remaining: {minute}:{second < 10 ? `0${second}` : second}
+          </h3>
+        )}
 
-          <div>
-            {!submitted &&
+        <div>
+          {!submitted &&
             questionBank.length > 0 &&
             questionBank.map(
-                ({ question, answers, correct, questionId }, index) => (
-                    <QuestionBox
-                        key={questionId}
-                        index={index + 1}
-                        question={question}
-                        options={answers}
-                        selected={(answer) =>
-                            this.computeAnswer(answer, correct, questionId)
-                        }
-                    />
-                )
+              ({ question, answers, correct, questionId }, index) => (
+                <QuestionBox
+                  key={questionId}
+                  index={index + 1}
+                  question={question}
+                  options={answers}
+                  selected={(answer) =>
+                    this.computeAnswer(answer, correct, questionId)
+                  }
+                />
+              )
             )}
 
-            {!submitted && (
-                <Box align="end">
-                  <Button
-                      primary
-                      label="Submit"
-                      onClick={() => this.handleSubmit()}
-                  />
-                </Box>
-            )}
+          {!submitted && (
+            <Box align="end">
+              <Button
+                primary
+                label="Submit"
+                onClick={() => this.handleSubmit()}
+              />
+            </Box>
+          )}
 
-            {submitted && (
-                <Result score={finalScore} playAgain={this.playAgain} />
-            )}
-          </div>
-        </Box>
+          {submitted && (
+            <Result score={finalScore} playAgain={this.playAgain} />
+          )}
+        </div>
+      </Box>
     );
   }
 }
