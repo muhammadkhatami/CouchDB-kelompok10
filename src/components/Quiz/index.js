@@ -102,17 +102,19 @@ export class Quiz extends React.Component {
         <h2>Pop Quiz!</h2>
         {!submitted &&
           questionBank.length > 0 &&
-          questionBank.map(({ question, answers, correct, questionId }) => (
-            <QuestionBox
-              key={questionId}
-              index={questionId}
-              question={question}
-              options={answers}
-              selected={(answer) =>
-                this.computeAnswer(answer, correct, questionId)
-              }
-            />
-          ))}
+          questionBank.map(
+            ({ question, answers, correct, questionId }, index) => (
+              <QuestionBox
+                key={questionId}
+                index={index + 1}
+                question={question}
+                options={answers}
+                selected={(answer) =>
+                  this.computeAnswer(answer, correct, questionId)
+                }
+              />
+            )
+          )}
 
         {!submitted && (
           <Box align="end">
