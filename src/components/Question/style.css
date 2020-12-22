@@ -12,13 +12,13 @@
 .score span {
   font-weight: 600;
   margin-left: 0.5rem;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 0.5rem;
   font-size: 2rem;
 }
 
 .question-label {
-  color: #aaaaaa;
+  color: #7d4cdb;
   font-size: 1rem;
   font-style: italic;
   font-weight: 600;

@@ -5,7 +5,7 @@ export const Content = ({ children }) => (
   <Box
     pad="medium"
     style={{
-      maxWidth: "900px",
+      maxWidth: "800px",
       marginLeft: "auto",
       marginRight: "auto",
       paddingLeft: "1rem",
