@@ -14,7 +14,7 @@ export class Quiz extends React.Component  {
       correctlyAnsweredQuestionId: [],
       finalScore: 0,
       minute: 0,
-      second: 2,
+      second: 10,
     };
 
     this.handleSubmit.bind(this);
@@ -34,9 +34,10 @@ export class Quiz extends React.Component  {
       correctQuestionAnswered: 0,
       correctlyAnsweredQuestionId: [],
       finalScore: 0,
-      minute:0,
+      minute:3,
       second:2,
     });
+    this.componentDidMount();
   };
 
   computeAnswer = (answer, correctAnswer, questionId) => {
