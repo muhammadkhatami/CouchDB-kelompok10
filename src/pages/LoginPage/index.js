@@ -25,6 +25,7 @@ class LoginPage extends React.Component {
     const { username, password } = this.state;
 
     if (username !== "" && password !== "") {
+      localStorage.setItem("isLoggedIn", "yes");
       this.props.history.push("/quiz");
     }
 
@@ -62,7 +63,7 @@ class LoginPage extends React.Component {
                 value={username}
                 placeholder="Username"
               />
-              <label for="inputUsername">Username</label>
+              <label htmlFor="inputUsername">Username</label>
             </div>
             <hr />
             <div className="form-control">
@@ -74,7 +75,7 @@ class LoginPage extends React.Component {
                 value={password}
                 placeholder="Password"
               />
-              <label for="inputPassword">Password</label>
+              <label htmlFor="inputPassword">Password</label>
             </div>
           </div>
           <div style={{ width: "480px" }}>

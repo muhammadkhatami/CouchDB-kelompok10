@@ -1,7 +1,7 @@
 import React from "react";
 
 import Content from "../../components/Content";
-import Quiz from "../Quiz";
+import Quiz from "../../components/Quiz";
 
 export const Home = ({ db }) => (
   <Content>

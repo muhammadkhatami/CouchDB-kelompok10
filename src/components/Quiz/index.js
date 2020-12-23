@@ -3,6 +3,7 @@ import { Box, Button } from "grommet";
 import questionAPI from "../Question";
 import QuestionBox from "../Question/QuestionBox";
 import Result from "../Question/ResultBox";
+import { Redirect } from "react-router-dom";
 
 export class Quiz extends React.Component {
   constructor(props) {
@@ -90,10 +91,6 @@ export class Quiz extends React.Component {
     this.timer();
   }
 
-  componentWillUnmount() {
-    clearInterval(this.myInterval);
-  }
-
   handleSubmit() {
     const {
       correctQuestionAnswered,
@@ -128,6 +125,10 @@ export class Quiz extends React.Component {
 
   render() {
     const { questionBank, submitted, finalScore, minute, second } = this.state;
+
+    if (localStorage.getItem("isLoggedIn") !== "yes") {
+      return <Redirect to="/" />;
+    }
 
     return (
       <Box>
@@ -172,7 +173,7 @@ export class Quiz extends React.Component {
             )}
 
           {!submitted && (
-            <Box align="end">
+            <Box align="end" style={{ marginBottom: "1rem" }}>
               <Button
                 primary
                 label="Submit"
