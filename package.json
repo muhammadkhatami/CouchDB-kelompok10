@@ -13,10 +13,12 @@
     "components": "^0.1.0",
     "grommet": "^2.0.0-beta.6",
     "grommet-icons": "^3.0.0",
+    "pages": "0.0.16",
     "pouchdb": "^7.2.2",
     "pouchdb-browser": "^7.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
     "src": "^1.1.2",
     "styled-components": "^5.2.1"
   },

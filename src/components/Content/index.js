@@ -6,6 +6,8 @@ export const Content = ({ children }) => (
     pad="medium"
     style={{
       maxWidth: "800px",
+      width: "100%",
+      height: "100%",
       marginLeft: "auto",
       marginRight: "auto",
       paddingLeft: "1rem",

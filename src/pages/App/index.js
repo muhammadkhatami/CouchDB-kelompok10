@@ -2,12 +2,13 @@ import React from "react";
 import PouchDB from "pouchdb-browser";
 import { Grommet, Box } from "grommet";
 import { grommet } from "grommet/themes";
-import { Router } from "@reach/router";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { COUCH_URL, COUCH_DATABASE } from "../../constants";
-import Header from "../Header";
-import OfflineMessage from "../OfflineMessage";
+import Header from "../../components/Header";
+import OfflineMessage from "../../components/OfflineMessage";
 import Home from "../Home";
+import LoginPage from "../LoginPage";
 
 const db = new PouchDB("reading_lists");
 const remoteDatabase = new PouchDB(`${COUCH_URL}/${COUCH_DATABASE}`, {
@@ -91,8 +92,15 @@ export class App extends React.Component {
         <Box fill={true}>
           <Header />
           <Box fill>
-            <Router style={{ height: "100%" }}>
-              <Home path="/" db={db} />
+            <Router>
+              <Switch>
+                <Route exact path="/">
+                  <LoginPage />
+                </Route>
+                <Route exact path="/quiz">
+                  <Home db={db} />
+                </Route>
+              </Switch>
             </Router>
           </Box>
           <OfflineMessage online={online} />
