@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import login from "../../assets/login.svg";
 
 import { Button } from "grommet";
@@ -11,39 +12,62 @@ class LoginPage extends React.Component {
     this.state = {
       username: "",
       password: "",
+      isEmpty: true,
+      isError: false,
     };
   }
+
+  componentDidMount = () => {
+    if (localStorage.getItem("isLoggedIn") === "yes") {
+      this.props.history.push("/confirm");
+    }
+  };
 
   changeHandler = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+
+    const { username, password } = this.state;
+
+    if (username !== "" && password !== "") {
+      this.setState({ isEmpty: false });
+    }
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
 
     const { username, password } = this.state;
-
-    if (username !== "" && password !== "") {
-      localStorage.setItem("isLoggedIn", "yes");
-      this.props.history.push("/quiz");
-    }
+    const { history } = this.props;
 
     const data = {
-      username: this.state.username,
-      password: this.state.password,
+      username,
+      password,
     };
 
-    console.log(data);
+    axios
+      .post("http://localhost:10010/_session", data)
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem("isLoggedIn", "yes");
+          localStorage.setItem("role", response.data.roles[0]);
+          history.push("/quiz");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({ isError: true });
+      });
 
     this.setState({
       username: "",
       password: "",
+      isEmpty: true,
     });
   };
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, isEmpty, isError } = this.state;
 
     return (
       <LoginPageContainer>
@@ -51,6 +75,9 @@ class LoginPage extends React.Component {
           <img src={login} alt="Login Assets" />
         </div>
         <div className="right-container">
+          {isError && (
+            <p className="error-msg">Username or password incorrect!</p>
+          )}
           <h1>Pop Quiz App</h1>
           <p>Apache CouchDB</p>
           <div className="form-group">
@@ -78,9 +105,10 @@ class LoginPage extends React.Component {
               <label htmlFor="inputPassword">Password</label>
             </div>
           </div>
-          <div style={{ width: "480px" }}>
+          <div style={{ width: "70%" }}>
             <Button
               label="LOGIN"
+              disabled={isEmpty}
               primary
               onClick={this.handleSubmit}
               style={{ width: "100%", borderRadius: 4, padding: "8px 24px" }}

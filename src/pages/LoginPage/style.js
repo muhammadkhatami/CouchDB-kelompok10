@@ -50,14 +50,13 @@ export const LoginPageContainer = styled.div`
 
       .form-control {
         position: relative;
-        width: 480px;
 
         label {
           position: absolute;
           display: block;
           top: 0;
           left: 0;
-          width: 100%;
+          width: 85%;
           margin-bottom: 0;
           transition: all 0.2s ease-in-out;
           padding: 1.2rem;
@@ -70,7 +69,7 @@ export const LoginPageContainer = styled.div`
         input {
           height: 1.5rem;
           outline: none;
-          width: 100%;
+          width: 85%;
           padding: 1.2rem;
           border: none;
           border-left: 4px solid transparent;

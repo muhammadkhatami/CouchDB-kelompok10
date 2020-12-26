@@ -9,6 +9,7 @@ import Header from "../../components/Header";
 import OfflineMessage from "../../components/OfflineMessage";
 import Home from "../Home";
 import LoginPage from "../LoginPage";
+import ConfirmationPage from "../ConfirmationPage";
 
 const db = new PouchDB("reading_lists");
 const remoteDatabase = new PouchDB(`${COUCH_URL}/${COUCH_DATABASE}`, {
@@ -96,6 +97,9 @@ export class App extends React.Component {
               <Switch>
                 <Route exact path="/">
                   <LoginPage />
+                </Route>
+                <Route exact path="/confirm">
+                  <ConfirmationPage />
                 </Route>
                 <Route exact path="/quiz">
                   <Home db={db} />
