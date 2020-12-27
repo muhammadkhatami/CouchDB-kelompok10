@@ -21,15 +21,7 @@ export const Header = () => (
     direction="row"
     tag="header"
   >
-    <Box
-      tag="nav"
-      direction="row"
-      responsive
-      justify="between"
-      margin={{ right: "medium", left: "medium" }}
-    >
-      <Styled.StyledLink to="/">Kelompok 10</Styled.StyledLink>
-    </Box>
+
     <Box
         tag="div"
         direction="row"
