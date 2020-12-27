@@ -11,6 +11,12 @@ class ConfirmationPage extends Component {
     };
   }
 
+  componentDidMount = () => {
+    if (!localStorage.getItem("isLoggedIn")) {
+      this.props.history.push("/");
+    }
+  };
+
   openModal = () => {
     this.setState({ isShow: true });
   };

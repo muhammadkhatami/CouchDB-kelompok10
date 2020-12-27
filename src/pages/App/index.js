@@ -91,9 +91,9 @@ export class App extends React.Component {
     return (
       <Grommet full={true} theme={grommet}>
         <Box fill={true}>
-          <Header />
           <Box fill>
             <Router>
+              <Header />
               <Switch>
                 <Route exact path="/">
                   <LoginPage />

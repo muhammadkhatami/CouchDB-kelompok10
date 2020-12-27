@@ -51,7 +51,8 @@ class LoginPage extends React.Component {
         if (response.status === 200) {
           localStorage.setItem("isLoggedIn", "yes");
           localStorage.setItem("role", response.data.roles[0]);
-          history.push("/quiz");
+          localStorage.setItem("username", username);
+          history.push("/confirm");
         }
       })
       .catch((error) => {

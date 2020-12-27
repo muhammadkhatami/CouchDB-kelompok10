@@ -3,7 +3,7 @@ import { Box, Button } from "grommet";
 import questionAPI from "../Question";
 import QuestionBox from "../Question/QuestionBox";
 import Result from "../Question/ResultBox";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 export class Quiz extends React.Component {
   constructor(props) {
@@ -87,6 +87,10 @@ export class Quiz extends React.Component {
   };
 
   componentDidMount() {
+    if (!localStorage.getItem("isLoggedIn")) {
+      this.props.history.push("/");
+    }
+
     this.getQuestions();
     this.timer();
   }
@@ -118,6 +122,7 @@ export class Quiz extends React.Component {
       _id: new Date().toJSON(),
       submit_datetime: dateTime,
       score: finalScore,
+      username: localStorage.getItem("username"),
     });
 
     this.setState({ submitted: true, finalScore });
@@ -190,4 +195,4 @@ export class Quiz extends React.Component {
     );
   }
 }
-export default Quiz;
+export default withRouter(Quiz);
