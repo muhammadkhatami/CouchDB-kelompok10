@@ -26,6 +26,7 @@ class LoginPage extends React.Component {
 
     if (username !== "" && password !== "") {
       localStorage.setItem("isLoggedIn", "yes");
+      localStorage.setItem("username", this.state.username);
       this.props.history.push("/quiz");
     }
 

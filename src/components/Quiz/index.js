@@ -118,6 +118,7 @@ export class Quiz extends React.Component {
       _id: new Date().toJSON(),
       submit_datetime: dateTime,
       score: finalScore,
+      username: localStorage.getItem("username"),
     });
 
     this.setState({ submitted: true, finalScore });
