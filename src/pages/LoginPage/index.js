@@ -11,6 +11,7 @@ class LoginPage extends React.Component {
     this.state = {
       username: "",
       password: "",
+      isLoggedIn: "",
     };
   }
 
@@ -18,6 +19,8 @@ class LoginPage extends React.Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
+
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -33,6 +36,7 @@ class LoginPage extends React.Component {
     const data = {
       username: this.state.username,
       password: this.state.password,
+      isLoggedIn: "true",
     };
 
     console.log(data);

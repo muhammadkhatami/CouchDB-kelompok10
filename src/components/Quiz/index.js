@@ -27,6 +27,8 @@ export class Quiz extends React.Component {
     });
   };
 
+
+
   playAgain = () => {
     clearInterval(this.myInterval);
     this.getQuestions();
@@ -187,7 +189,10 @@ export class Quiz extends React.Component {
             <Result score={finalScore} playAgain={this.playAgain} />
           )}
         </div>
+
+
       </Box>
+
     );
   }
 }
