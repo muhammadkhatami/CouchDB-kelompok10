@@ -11,7 +11,7 @@ import Home from "../Home";
 import LoginPage from "../LoginPage";
 import ConfirmationPage from "../ConfirmationPage";
 
-const db = new PouchDB("reading_lists");
+const db = new PouchDB("db_quiz");
 const remoteDatabase = new PouchDB(`${COUCH_URL}/${COUCH_DATABASE}`, {
   headers: {
     Authorization: "Basic YWRtaW46cGFzc3dvcmQ=",
