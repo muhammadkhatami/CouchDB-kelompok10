@@ -73,7 +73,7 @@ class ConfirmationPage extends Component {
 
         <Modal
           title="Timed Quiz"
-          message="The quiz has a time limit of 30 mins. Time will count down from the moment you start your attempt and you must submit before it expires. Are you sure that you wish to start now?"
+          message="The quiz has a time limit of 10 mins. Time will count down from the moment you start your attempt and you must submit before it expires. Are you sure that you wish to start now?"
           show={isShow}
           handleClose={this.closeModal}
           handleSubmit={this.pushToQuiz}
